@@ -116,11 +116,14 @@ def e_silaba(letras):
 
 def e_palavra(palavra):
     def verificar_silabas(silabas):
+        memo = {}
         if silaba_final(silabas):
             return True
         else:
             for i in range(min(len(palavra), 5)): #silabas so podem ter 5 caracteres
-                if e_silaba(silabas[:i+1]):
+                silaba_atual = silabas[:i+1]
+                if silaba_atual in memo or e_silaba(silaba_atual):
+                    if silaba_atual not in memo: memo[silaba_atual] = 1
                     if verificar_silabas(silabas[i+1:]):
                         return True
 
